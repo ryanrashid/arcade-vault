@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">ArcadeVault</string>
+    <string name="add_listing">Add Listing</string>
+    <string name="title">Title</string>
+    <string name="price">Price</string>
+    <string name="upload_image">Upload Image</string>
 </resources>

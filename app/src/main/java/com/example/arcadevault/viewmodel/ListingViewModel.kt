@@ -1,5 +1,10 @@
 package com.example.arcadevault.viewmodel
 
+import android.app.Activity
+import android.net.Uri
+import androidx.activity.result.ActivityResultLauncher
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
@@ -11,10 +16,12 @@ import kotlinx.coroutines.launch
 
 class ListingViewModel(private val repository: ListingRepository) : ViewModel() {
 
-    // Insert a listing
-    fun insertListing(listing: ListingEntity) {
+    val uploadedImages: MutableLiveData<List<Uri>> = MutableLiveData()
+
+    fun addListing(title: String, price: Double) {
+        // Insert new listing with images into the database
         viewModelScope.launch {
-            repository.insertListing(listing)
+            repository.insertListing(title, price, uploadedImages.value)
         }
     }
 
@@ -23,9 +30,12 @@ class ListingViewModel(private val repository: ListingRepository) : ViewModel() 
         return repository.getAllListings().cachedIn(viewModelScope) // Cache the data in the ViewModel scope
     }
 
-    // Get listings by title as a Flow of PagingData
-    fun getListingByTitle(title: String): Flow<PagingData<ListingEntity>> {
-        return repository.getListingByTitle(title)
-            .cachedIn(viewModelScope) // Cache the data in the ViewModel scope
+    fun pickImages(launcher: ActivityResultLauncher<String>) {
+        // Notify repository to handle image picking
+        repository.pickImages(launcher)
+    }
+
+    fun setSelectedImages(uris: List<Uri>) {
+        uploadedImages.value = uris
     }
 }

@@ -1,11 +1,13 @@
 package com.example.arcadevault.data
 
+import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import android.content.Context
+import androidx.room.TypeConverters
 
 @Database(entities = [ListingEntity::class], version = 1, exportSchema = false)
+@TypeConverters(Converters::class) // Register the Converters class
 abstract class AppDatabase : RoomDatabase() {
 
     abstract fun listingDao(): ListingDao
@@ -19,8 +21,8 @@ abstract class AppDatabase : RoomDatabase() {
                 val instance = Room.databaseBuilder(
                     context.applicationContext,
                     AppDatabase::class.java,
-                    "claw_machine_db" // Database name
-                ).build()
+                    "arcade_vault_db"
+                ).fallbackToDestructiveMigration().build()
                 INSTANCE = instance
                 instance
             }

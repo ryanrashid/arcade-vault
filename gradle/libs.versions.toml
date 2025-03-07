@@ -2,6 +2,8 @@
 activityKtx = "1.10.1"
 agp = "8.9.0"
 fragmentKtx = "1.8.6"
+glide = "4.16.0"
+gson = "2.10.1"
 kotlin = "2.0.21"
 coreKtx = "1.15.0"
 junit = "4.13.2"
@@ -17,6 +19,7 @@ roomKtx = "2.6.1"
 [libraries]
 androidx-activity-ktx = { module = "androidx.activity:activity-ktx", version.ref = "activityKtx" }
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
+androidx-fragment = { module = "androidx.fragment:fragment", version.ref = "fragmentKtx" }
 androidx-fragment-ktx = { module = "androidx.fragment:fragment-ktx", version.ref = "fragmentKtx" }
 androidx-room-guava = { module = "androidx.room:room-guava", version.ref = "roomKtx" }
 androidx-room-paging = { module = "androidx.room:room-paging", version.ref = "roomKtx" }
@@ -25,6 +28,8 @@ androidx-room-runtime = { module = "androidx.room:room-runtime", version.ref = "
 androidx-room-rxjava2 = { module = "androidx.room:room-rxjava2", version.ref = "roomKtx" }
 androidx-room-rxjava3 = { module = "androidx.room:room-rxjava3", version.ref = "roomKtx" }
 androidx-room-testing = { module = "androidx.room:room-testing", version.ref = "roomKtx" }
+glide = { module = "com.github.bumptech.glide:glide", version.ref = "glide" }
+gson = { module = "com.google.code.gson:gson", version.ref = "gson" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
 androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }

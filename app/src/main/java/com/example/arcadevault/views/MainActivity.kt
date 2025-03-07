@@ -1,12 +1,16 @@
-package com.example.arcadevault
+package com.example.arcadevault.views
 
 import android.os.Bundle
+import android.view.View
+import android.widget.Button
+import android.widget.FrameLayout
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.arcadevault.R
 import com.example.arcadevault.adapter.ListingAdapter
 import com.example.arcadevault.data.AppDatabase
 import com.example.arcadevault.data.ListingRepository
@@ -43,5 +47,15 @@ class MainActivity : AppCompatActivity() {
                 adapter.submitData(pagingData)
             }
         }
+
+        // Set up the fragment transaction
+        findViewById<Button>(R.id.addListingButton).setOnClickListener {
+            showAddListingFragment()
+        }
+    }
+
+    private fun showAddListingFragment() {
+        val fragment = AddListingFragment()
+        fragment.show(supportFragmentManager, fragment.tag)
     }
 }

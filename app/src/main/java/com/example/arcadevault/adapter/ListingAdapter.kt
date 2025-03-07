@@ -8,6 +8,7 @@ import android.widget.TextView
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.example.arcadevault.R
 import com.example.arcadevault.data.ListingEntity
 
@@ -22,15 +23,15 @@ class ListingAdapter : PagingDataAdapter<ListingEntity, ListingAdapter.ListingVi
         val listing = getItem(position)
         if (listing != null) {
             // Load image using Glide
-            //Glide.with(itemView.context)
-            //    .load(listing.image)
-            //    .into(listingImageView)
+            if (!listing.images.isNullOrEmpty()) {
+                Glide.with(holder.itemView.context).load(listing.images.first()).into(holder.listingImageView)
+            }
             holder.titleTextView.text = listing.title
             holder.priceTextView.text = listing.price?.toString() ?: "N/A"
         }
     }
 
-    class ListingViewHolder(private val itemView: View) : RecyclerView.ViewHolder(itemView) {
+    class ListingViewHolder(private val view: View) : RecyclerView.ViewHolder(view) {
         val listingImageView: ImageView = itemView.findViewById(R.id.listing_image_view)
         val titleTextView: TextView = itemView.findViewById(R.id.title_text_view)
         val priceTextView: TextView = itemView.findViewById(R.id.price_text_view)
