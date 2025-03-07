@@ -36,4 +36,8 @@ class ListingRepository(private val listingDao: ListingDao) {
             pagingSourceFactory = { listingDao.getAllListings() }
         ).flow
     }
+
+    suspend fun getListingFromId(id: Int): ListingEntity? {
+        return listingDao.getListingFromId(id)
+    }
 }

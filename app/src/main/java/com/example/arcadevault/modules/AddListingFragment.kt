@@ -1,4 +1,4 @@
-package com.example.arcadevault.views
+package com.example.arcadevault.modules
 
 import android.net.Uri
 import android.os.Bundle

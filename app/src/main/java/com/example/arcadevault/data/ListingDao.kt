@@ -16,4 +16,7 @@ interface ListingDao {
 
     @Query("SELECT * FROM listings ORDER BY id DESC")
     fun getAllListings(): PagingSource<Int, ListingEntity>
+
+    @Query("SELECT * FROM listings WHERE id = :listingId")
+    suspend fun getListingFromId(listingId: Int): ListingEntity?
 }

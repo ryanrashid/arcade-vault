@@ -1,9 +1,8 @@
-package com.example.arcadevault.views
+package com.example.arcadevault.modules
 
+import android.content.Intent
 import android.os.Bundle
-import android.view.View
 import android.widget.Button
-import android.widget.FrameLayout
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -15,7 +14,7 @@ import com.example.arcadevault.adapter.ListingAdapter
 import com.example.arcadevault.data.AppDatabase
 import com.example.arcadevault.data.ListingRepository
 import com.example.arcadevault.viewmodel.ListingViewModel
-import com.example.arcadevault.viewmodel.ListingViewModelFactory
+import com.example.arcadevault.viewmodel.AppViewModelFactory
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
@@ -26,7 +25,7 @@ class MainActivity : AppCompatActivity() {
         // Initialize the database and repository directly in the Activity
         val database = AppDatabase.getDatabase(this)
         val repository = ListingRepository(database.listingDao())
-        ListingViewModelFactory(repository)
+        AppViewModelFactory(repository)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -35,7 +34,11 @@ class MainActivity : AppCompatActivity() {
         enableEdgeToEdge()
 
         // Set up RecyclerView and adapter
-        adapter = ListingAdapter()
+        adapter = ListingAdapter() { id: Int ->
+            val intent = Intent(this, ProductDetailsPageActivity::class.java)
+            intent.putExtra("listing_id", id)
+            startActivity(intent)
+        }
         val recyclerView = findViewById<RecyclerView>(R.id.listings_recycler_view)
         recyclerView.adapter = adapter
         recyclerView.setHasFixedSize(true)

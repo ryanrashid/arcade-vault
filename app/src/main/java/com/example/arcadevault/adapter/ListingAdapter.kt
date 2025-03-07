@@ -12,7 +12,7 @@ import com.bumptech.glide.Glide
 import com.example.arcadevault.R
 import com.example.arcadevault.data.ListingEntity
 
-class ListingAdapter : PagingDataAdapter<ListingEntity, ListingAdapter.ListingViewHolder>(COMPARATOR) {
+class ListingAdapter(private val onItemClickListener: ((Int) -> Unit)? = null) : PagingDataAdapter<ListingEntity, ListingAdapter.ListingViewHolder>(COMPARATOR) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ListingViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_listing, parent, false)
@@ -28,6 +28,9 @@ class ListingAdapter : PagingDataAdapter<ListingEntity, ListingAdapter.ListingVi
             }
             holder.titleTextView.text = listing.title
             holder.priceTextView.text = listing.price?.toString() ?: "N/A"
+            holder.itemView.setOnClickListener {
+                onItemClickListener?.invoke(listing.id)
+            }
         }
     }
 
