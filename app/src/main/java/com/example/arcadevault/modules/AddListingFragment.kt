@@ -47,7 +47,7 @@ class AddListingFragment : BottomSheetDialogFragment(R.layout.fragment_add_listi
         addButton = view.findViewById(R.id.addButton)
         imagesRecyclerView = view.findViewById(R.id.imagesRecyclerView)
 
-        viewModel = ViewModelProvider(requireActivity())[ListingViewModel::class.java]
+        viewModel = ViewModelProvider(this)[ListingViewModel::class.java]
 
         // Setup RecyclerView
         imageAdapter = ImageAdapter()

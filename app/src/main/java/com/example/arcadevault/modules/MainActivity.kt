@@ -1,64 +1,24 @@
 package com.example.arcadevault.modules
 
-import android.content.Intent
 import android.os.Bundle
-import android.widget.Button
 import androidx.activity.enableEdgeToEdge
-import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.lifecycleScope
-import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.RecyclerView
+import androidx.navigation.findNavController
+import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.ui.setupWithNavController
 import com.example.arcadevault.R
-import com.example.arcadevault.adapter.ListingAdapter
-import com.example.arcadevault.data.AppDatabase
-import com.example.arcadevault.data.ListingRepository
-import com.example.arcadevault.viewmodel.ListingViewModel
-import com.example.arcadevault.viewmodel.AppViewModelFactory
-import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.launch
+import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class MainActivity : AppCompatActivity() {
-
-    private lateinit var adapter: ListingAdapter
-    private val viewModel: ListingViewModel by viewModels {
-        // Initialize the database and repository directly in the Activity
-        val database = AppDatabase.getDatabase(this)
-        val repository = ListingRepository(database.listingDao())
-        AppViewModelFactory(repository)
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         enableEdgeToEdge()
 
-        // Set up RecyclerView and adapter
-        adapter = ListingAdapter() { id: Int ->
-            val intent = Intent(this, ProductDetailsPageActivity::class.java)
-            intent.putExtra("listing_id", id)
-            startActivity(intent)
-        }
-        val recyclerView = findViewById<RecyclerView>(R.id.listings_recycler_view)
-        recyclerView.adapter = adapter
-        recyclerView.setHasFixedSize(true)
-        recyclerView.layoutManager = GridLayoutManager(this, 2)
-
-        // Observe the listings using collectLatest
-        lifecycleScope.launch {
-            viewModel.getAllListings().collectLatest { pagingData ->
-                adapter.submitData(pagingData)
-            }
-        }
-
-        // Set up the fragment transaction
-        findViewById<Button>(R.id.addListingButton).setOnClickListener {
-            showAddListingFragment()
-        }
-    }
-
-    private fun showAddListingFragment() {
-        val fragment = AddListingFragment()
-        fragment.show(supportFragmentManager, fragment.tag)
+        val navHostFragment =
+            supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
+        val navController = navHostFragment.navController
+        findViewById<BottomNavigationView>(R.id.bottom_nav_bar).setupWithNavController(navController)
     }
 }

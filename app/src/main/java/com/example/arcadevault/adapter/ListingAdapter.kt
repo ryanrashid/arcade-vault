@@ -35,9 +35,9 @@ class ListingAdapter(private val onItemClickListener: ((Int) -> Unit)? = null) :
     }
 
     class ListingViewHolder(private val view: View) : RecyclerView.ViewHolder(view) {
-        val listingImageView: ImageView = itemView.findViewById(R.id.listing_image_view)
-        val titleTextView: TextView = itemView.findViewById(R.id.title_text_view)
-        val priceTextView: TextView = itemView.findViewById(R.id.price_text_view)
+        val listingImageView: ImageView = view.findViewById(R.id.listing_image_view)
+        val titleTextView: TextView = view.findViewById(R.id.title_text_view)
+        val priceTextView: TextView = view.findViewById(R.id.price_text_view)
     }
 
     companion object {

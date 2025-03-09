@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/fragment_explore_page"
+        android:icon="@drawable/ic_explore"
+        android:title="@string/explore" />
+
+    <item
+        android:id="@+id/fragment_add_listing"
+        android:icon="@drawable/ic_add_listing"
+        android:title="@string/add_listing" />
+</menu>
